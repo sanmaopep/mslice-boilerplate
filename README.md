@@ -1,7 +1,21 @@
 # 前端切图脚手架
 ## 概述
+### 运行方法
+- Run npm install to initialize.
+- Run gulp or gulp dev to open develop mode.
+- Run gulp publish to generate final code.
 
 ## 结构说明
+	\app - 项目源代码
+		\compenents - 存放组件
+		\img - 存放图片
+		\js - 存放ES6代码
+		\less - 存放LESS代码
+		\lib - 存放第三方库文件（如Jquery）
+		index.jade - 页面文件
+	\build - 开发模式生成代码
+	\publish - 生产模式生成代码
+	\gulpconfig - gulp配置的部分解耦
 ## 版本更新
 ### 2016/9/9 （当前版本）
 - 开设开发模式
