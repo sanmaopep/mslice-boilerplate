@@ -18,7 +18,7 @@
 	\gulpconfig - gulp配置的部分解耦
 
 ## 版本更新
-### 2016/9/9 （当前版本）
+### 功能
 - 开设开发模式
 - 进行less，jade，ES6的编译
 - 监控less，jade，ES6更改并动态更新
@@ -26,13 +26,13 @@
 - css进行autoprefixer
 - js，less添加sourceMap
 - 可以编译ES6（模块化）
+- 开设生产模式
+- 对css，js进行压缩
+- 对图片png进行压缩
 
 ### 未来期望
 - 开设组件化开发模式
 - 添加组件浏览器预览
-- 开设生产模式
-- 对css，js进行压缩
-- 对图片png进行压缩
 - 添加CSS雪碧功能
 - pug代替jade
 
