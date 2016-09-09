@@ -1,6 +1,7 @@
 "use strict"
 
 var gulp = require("gulp"),
+	plumber = require('gulp-plumber'),
 	browserSync = require('browser-sync').create(),
 	jade = require("gulp-jade"),
 	browserify = require('browserify'),
@@ -33,10 +34,10 @@ gulp.task('lessDev', function() {
 	return less.compileLess();
 });
 
-// 编译ES6,未根据CommanJS打包
-gulp.task('babelDev', function(done) {
+// 编译ES6
+gulp.task('babelDev', function(cb) {
 	console.log('ES6在编译_(:з)∠)_');
-	return babel.complieBabel();
+	return babel.runWebPack(cb);
 });
 
 // 编译Jade
@@ -44,6 +45,7 @@ gulp.task('jadeDev', function() {
 	console.log('JADE在编译_(:з)∠)_');
 	var YOUR_LOCALS = {};
 	return gulp.src('./app/*.jade')
+		.pipe(plumber())
 		.pipe(jade({
 			locals: YOUR_LOCALS
 		}))

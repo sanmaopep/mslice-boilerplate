@@ -1,4 +1,5 @@
 var gulp = require("gulp"),
+	plumber = require('gulp-plumber'),
 	less = require("gulp-less"),
 	rename = require('gulp-rename'),
 	path = require('path'),
@@ -12,6 +13,7 @@ module.exports = {
 	compileLess: () => {
 		return gulp.src('./app/less/*.less')
 			.pipe(sourcemaps.init())
+			// .pipe(plumber())
 			.pipe(less())
 			.pipe(autoprefixer({
 				browsers: broswerList

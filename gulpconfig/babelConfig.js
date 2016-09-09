@@ -3,11 +3,12 @@ var babel = require('gulp-babel'),
 	path = require('path'),
 	rename = require('gulp-rename'),
 	sourcemaps = require('gulp-sourcemaps'),
-	source = require('vinyl-source-stream'),
-	buffer = require('vinyl-buffer'),
-	babelify = require('babelify'),
-	glob = require('glob'),
-	es = require('event-stream');
+	gutil = require('gulp-util'),
+	webpack = require('webpack'),
+	webpackConfig = require('./webpack.config.js');
+
+var myDevConfig = Object.create(webpackConfig);
+var devCompiler = webpack(myDevConfig);
 
 module.exports = {
 	complieBabel: () => {
@@ -19,25 +20,13 @@ module.exports = {
 			.pipe(sourcemaps.write('.'))
 			.pipe(gulp.dest('./build/js/'));
 	},
-	compileBabelWithBroswerify: () => {
-		// glob('./app/js/*.js', function(err, files) {
-		// 	if (err) done(err);
-
-		// 	var tasks = files.map(function(entry) {
-		// 		console.log('编译JS文件入口:'+entry);
-		// 		return browserify({
-		// 				entries: [entry],
-		// 				debug: true
-		// 			})
-		// 			.transform(babelify,{presets: ['es2015']})
-		// 			.bundle()
-		// 			.pipe(source(entry))
-		// 			.pipe(rename({
-		// 				extname: '.bundle.js'
-		// 			}))
-		// 			.pipe(gulp.dest('./build/js/'));
-		// 	});
-		// 	es.merge(tasks).on('end', done);
-		// });
+	runWebPack: (cb) => {
+		devCompiler.run(function(err, stats) {
+			if (err) throw new gutil.PluginError("webpack:build-js", err);
+			gutil.log("[webpack:build-js]", stats.toString({
+				colors: true
+			}));
+			cb();
+		});
 	}
 };
