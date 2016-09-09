@@ -1,14 +1,14 @@
 var babel = require('gulp-babel'),
 	gulp = require("gulp"),
-	path = require('path'),
-	rename = require('gulp-rename'),
-	sourcemaps = require('gulp-sourcemaps'),
 	gutil = require('gulp-util'),
 	webpack = require('webpack'),
-	webpackConfig = require('./webpack.config.js');
+	webpackConfig = require('./webpack.config.js'),
+	publishConfig = require('./webpack.publish.config.js');
 
 var myDevConfig = Object.create(webpackConfig);
+var myPublishConfig = Object.create(publishConfig);
 var devCompiler = webpack(myDevConfig);
+var publishCompiler = webpack(myPublishConfig);
 
 module.exports = {
 	complieBabel: () => {
@@ -22,6 +22,15 @@ module.exports = {
 	},
 	runWebPack: (cb) => {
 		devCompiler.run(function(err, stats) {
+			if (err) throw new gutil.PluginError("webpack:build-js", err);
+			gutil.log("[webpack:build-js]", stats.toString({
+				colors: true
+			}));
+			cb();
+		});
+	},
+	publishWebPack: (cb) => {
+		publishCompiler.run(function(err, stats) {
 			if (err) throw new gutil.PluginError("webpack:build-js", err);
 			gutil.log("[webpack:build-js]", stats.toString({
 				colors: true

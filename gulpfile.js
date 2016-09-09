@@ -16,7 +16,7 @@ gulp.task('default', ['dev']);
 
 // 设置监控 
 gulp.task('dev', ['lessDev', 'jadeDev', 'babelDev', 'imgDev', 'browser-start', 'libDev'], function() {
-	console.log("开启开发模式_(:з)∠)_");
+	console.log("正在努力开启开发模式_(:з)∠)_");
 
 	gulp.watch('./app/img/*', ['imgDev']);
 	gulp.watch('./app/less/img/*', ['imgDev']);
@@ -30,31 +30,32 @@ gulp.task('dev', ['lessDev', 'jadeDev', 'babelDev', 'imgDev', 'browser-start', '
 
 // 编译Less
 gulp.task('lessDev', function() {
-	console.log('LESS在编译_(:з)∠)_');
+	console.log('LESS正在努力编译_(:з)∠)_');
 	return less.compileLess();
 });
 
 // 编译ES6
 gulp.task('babelDev', function(cb) {
-	console.log('ES6在编译_(:з)∠)_');
+	console.log('ES6正在努力编译_(:з)∠)_');
 	return babel.runWebPack(cb);
 });
 
 // 编译Jade
 gulp.task('jadeDev', function() {
-	console.log('JADE在编译_(:з)∠)_');
+	console.log('JADE正在努力编译_(:з)∠)_');
 	var YOUR_LOCALS = {};
 	return gulp.src('./app/*.jade')
 		.pipe(plumber())
 		.pipe(jade({
-			locals: YOUR_LOCALS
+			locals: YOUR_LOCALS,
+			pretty:true
 		}))
 		.pipe(gulp.dest('./build/'));
 });
 
 // 图片处理
 gulp.task('imgDev', function() {
-	console.log('图片在复制_(:з)∠)_');
+	console.log('图片正在努力复制_(:з)∠)_');
 	gulp.src('./app/less/img/*')
 		.pipe(gulp.dest('./build/css/img/'));
 	return gulp.src('./app/img/*')
@@ -63,7 +64,7 @@ gulp.task('imgDev', function() {
 
 // 复制第三方库
 gulp.task('libDev', function() {
-	console.log('第三方Lib也在复制_(:з)∠)_');
+	console.log('第三方Lib也在努力复制_(:з)∠)_');
 	return gulp.src('./app/lib/**')
 		.pipe(gulp.dest('./build/lib/'));
 });
@@ -72,7 +73,7 @@ gulp.task('libDev', function() {
 	搭建静态服务器
 **********************************************************/
 gulp.task('browser-start', function() {
-	console.log('服务器开启,等服务器提供IP吧_(:з)∠)_');
+	console.log('服务器正在努力开启,等服务器提供IP吧_(:з)∠)_');
 	return browserSync.init({
 		server: {
 			baseDir: "./build/"
@@ -82,7 +83,7 @@ gulp.task('browser-start', function() {
 
 // 服务器重载（刷新）
 gulp.task('browser-reload', function() {
-	console.log('浏览器刷新_(:з)∠)_');
+	console.log('浏览器正在努力刷新_(:з)∠)_');
 	browserSync.reload();
 });
 
@@ -90,10 +91,50 @@ gulp.task('browser-reload', function() {
 	生产模式
 **********************************************************/
 
+gulp.task('publish',['imgMinPublish','jadePublish','libPublish','babelPublish','lessPublish'],function () {
+	 console.log('_(:з」∠)_正在努力为你生产最终代码_(:з」∠)_'); 
+});
+
 // 图片压缩 发布模式
 gulp.task('imgMinPublish', function() {
-	console.log('图片在压缩_(:з)∠)_');
+	console.log('图片正在努力压缩_(:з)∠)_');
 	return gulp.src('./app/img/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./build/img'));
+		.pipe(gulp.dest('./public/img'));
 });
+
+// 发布jade
+gulp.task('jadePublish',['jadeDev'],function () {
+	console.log('JADE正在努力生产_(:з)∠)_');
+	var YOUR_LOCALS = {};
+	return gulp.src('./app/*.jade')
+		.pipe(plumber())
+		.pipe(jade({
+			locals: YOUR_LOCALS,
+			pretty:true
+		}))
+		.pipe(gulp.dest('./public/'));
+});
+
+// 发布第三方库
+gulp.task('libPublish', function() {
+	console.log('第三方Lib也在努力复制_(:з)∠)_');
+	return gulp.src('./app/lib/**')
+		.pipe(gulp.dest('./public/lib/'));
+});
+
+// 生产ES6
+gulp.task('babelPublish', function(cb) {
+	console.log('ES6正在努力生产_(:з)∠)_');
+	return babel.publishWebPack(cb);
+});
+
+// 生产LESS
+gulp.task('lessPublish', function() {
+	console.log('LESS正在努力生产_(:з)∠)_');
+	return less.publishLess();
+});
+
+/**********************************************************
+	组件开发模式
+**********************************************************/
