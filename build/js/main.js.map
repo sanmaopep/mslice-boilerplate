@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.js"],"names":["a","b"],"mappings":";;AAAA,IAAIA,IAAI,SAAJA,CAAI,GAAK;AACZ,KAAIC,IAAI,CAAR;AACAA;AACA,CAHD","file":"main.js","sourcesContent":["var a = () =>{\r\n\tvar b = 1;\r\n\tb++;\r\n};"],"sourceRoot":"/source/"}

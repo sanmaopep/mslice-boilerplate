@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.less","index.css"],"names":[],"mappings":"AAAA;EACC,YAAA;CCCA;ADCD;EACC,kBAAA;CCCA","file":"index.css","sourcesContent":["*{\r\n\tmargin:0 0;\r\n}\r\nh1{\r\n\tmargin-top: 100px;\r\n}","* {\n  margin: 0 0;\n}\nh1 {\n  margin-top: 100px;\n}\n"],"sourceRoot":"/source/"}

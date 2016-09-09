@@ -15,16 +15,21 @@ var imagemin = require('gulp-imagemin');
 gulp.task('default',['dev']);
 
 // 设置监控
-gulp.task('dev',['lessDev','jadeDev','babelDev','imgMin'],function () {
-	gulp.watch('./app/img/*',['imgMin','browser-reload']);
-	gulp.watch('./app/less/*.less',['lessDev','browser-reload']);
-	gulp.watch('./app/*.jade',['jadeDev','browser-reload']);
-	gulp.watch('./app/js/*.js',['babelDev','browser-reload']);
+gulp.task('dev',['lessDev','jadeDev','babelDev','imgMin','browser-start'],function () {
+	console.log("开启开发模式_(:з)∠)_");
+
+	gulp.watch('./app/img/*',['imgMin']);
+	gulp.watch('./app/less/*.less',['lessDev']);
+	gulp.watch('./app/*.jade',['jadeDev']);
+	gulp.watch('./app/js/*.js',['babelDev']);
+
+	//监控build文件下的变化
+	gulp.watch('./build/**',['browser-reload']);
 });
 
 // 编译Less
 gulp.task('lessDev',function () {
-	console.log('less compiling...');
+	console.log('LESS在编译_(:з)∠)_');
 
 	return gulp.src('./app/less/*.less')
 	  .pipe(sourcemaps.init())
@@ -41,7 +46,7 @@ gulp.task('lessDev',function () {
 
 //编译jade
 gulp.task('jadeDev',function () {
-	console.log('jade compiling...');
+	console.log('JADE在编译_(:з)∠)_');
 	var YOUR_LOCALS = {};
 
 	return gulp.src('./app/*.jade')
@@ -51,7 +56,7 @@ gulp.task('jadeDev',function () {
 
 // 编译ES6
 gulp.task('babelDev',function () {
-	console.log('ES6 compiling...');
+	console.log('ES6在编译_(:з)∠)_');
 
 	gulp.src('./app/js/*.js')
         .pipe(sourcemaps.init())
@@ -64,7 +69,7 @@ gulp.task('babelDev',function () {
 
 // 图片压缩
 gulp.task('imgMin', function () {
-	console.log('image is mining');
+	console.log('图片在压缩_(:з)∠)_');
 
 	return gulp.src('./app/img/*')
         .pipe(imagemin())
@@ -73,6 +78,8 @@ gulp.task('imgMin', function () {
 
 // 搭建静态服务器
 gulp.task('browser-start', function() {
+	console.log('服务器开启,等服务器提供IP吧_(:з)∠)_');
+
     browserSync.init({
         server: {
             baseDir: "./build/"
@@ -82,5 +89,6 @@ gulp.task('browser-start', function() {
 
 // 服务器重载（刷新）
 gulp.task('browser-reload', function() {
+	console.log('浏览器刷新_(:з)∠)_')
     browserSync.reload();
 });
