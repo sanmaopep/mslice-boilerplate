@@ -2,6 +2,7 @@ var gulp = require("gulp"),
 	plumber = require('gulp-plumber'),
 	less = require("gulp-less"),
 	rename = require('gulp-rename'),
+	concat = require('gulp-concat'),
 	path = require('path'),
 	autoprefixer = require('gulp-autoprefixer'),
 	cleanCSS = require('gulp-clean-css'),
@@ -30,7 +31,33 @@ module.exports = {
 			.pipe(autoprefixer({
 				browsers: publishBroswerList
 			}))
-			.pipe(cleanCSS({compatibility: 'ie8'}))
+			.pipe(cleanCSS({
+				compatibility: 'ie8'
+			}))
 			.pipe(gulp.dest('./public/css/'));
+	},
+	compileSingleLessFile: (fileName, dist) => {
+		return gulp.src(fileName)
+			.pipe(sourcemaps.init())
+			// .pipe(plumber())
+			.pipe(less())
+			.pipe(autoprefixer({
+				browsers: devBroswerList
+			}))
+			.pipe(sourcemaps.write('.'))
+			.pipe(gulp.dest(dist));
+	},
+	devCompenentsLess: () => {
+		return gulp.src('./app/compenents/**/*.less')
+			.pipe(sourcemaps.init())
+			.pipe(less())
+			.pipe(autoprefixer({
+				browsers: devBroswerList
+			}))
+			.pipe(rename(function(path) {
+				path.basename = "style";
+			}))
+			.pipe(sourcemaps.write('.'))
+			.pipe(gulp.dest('./build/compenents/'));
 	}
 };

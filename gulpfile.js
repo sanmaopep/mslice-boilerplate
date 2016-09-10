@@ -7,6 +7,7 @@ var gulp = require("gulp"),
 	browserify = require('browserify'),
 	babel = require('./gulpconfig/babelConfig.js'),
 	less = require('./gulpconfig/lessConfig.js'),
+	compenent = require('./gulpconfig/compenentConfig.js'),
 	imagemin = require('gulp-imagemin');
 
 /**********************************************************
@@ -15,10 +16,12 @@ var gulp = require("gulp"),
 gulp.task('default', ['dev']);
 
 // 设置监控 
-gulp.task('dev', ['lessDev', 'jadeDev', 'babelDev', 'imgDev', 'browser-start', 'libDev'], function() {
+gulp.task('dev', ['lessDev', 'jadeDev', 'babelDev', 'imgDev', 'libDev',
+	'browser-start','watchCompenents'
+], function() {
 	console.log("正在努力开启开发模式_(:з)∠)_");
 
-	gulp.watch('./app/img/*', ['imgDev']);
+	gulp.watch('./app/asset/*', ['imgDev']);
 	gulp.watch('./app/less/img/*', ['imgDev']);
 	gulp.watch('./app/less/*.less', ['lessDev']);
 	gulp.watch('./app/*.jade', ['jadeDev']);
@@ -48,7 +51,7 @@ gulp.task('jadeDev', function() {
 		.pipe(plumber())
 		.pipe(jade({
 			locals: YOUR_LOCALS,
-			pretty:true
+			pretty: true
 		}))
 		.pipe(gulp.dest('./build/'));
 });
@@ -58,8 +61,8 @@ gulp.task('imgDev', function() {
 	console.log('图片正在努力复制_(:з)∠)_');
 	gulp.src('./app/less/img/*')
 		.pipe(gulp.dest('./build/css/img/'));
-	return gulp.src('./app/img/*')
-		.pipe(gulp.dest('./build/img'));
+	return gulp.src('./app/asset/*')
+		.pipe(gulp.dest('./build/asset'));
 });
 
 // 复制第三方库
@@ -91,27 +94,34 @@ gulp.task('browser-reload', function() {
 	生产模式
 **********************************************************/
 
-gulp.task('publish',['imgMinPublish','jadePublish','libPublish','babelPublish','lessPublish'],function () {
-	 console.log('_(:з」∠)_正在努力为你生产最终代码_(:з」∠)_'); 
+gulp.task('publish', ['imgMinPublish',
+	'jadePublish', 'libPublish', 'babelPublish', 'lessPublish',
+	'publishCompents'
+], function() {
+	console.log('_(:з」∠)_正在努力为你生产最终代码_(:з」∠)_');
 });
 
 // 图片压缩 发布模式
 gulp.task('imgMinPublish', function() {
 	console.log('图片正在努力压缩_(:з)∠)_');
-	return gulp.src('./app/img/*')
+	//精灵图？
+	gulp.src('./app/less/img/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./public/img'));
+		.pipe(gulp.dest('./public/css/img/'));
+	return gulp.src('./app/asset/*')
+		.pipe(imagemin())
+		.pipe(gulp.dest('./public/asset'));
 });
 
 // 发布jade
-gulp.task('jadePublish',['jadeDev'],function () {
+gulp.task('jadePublish', ['jadeDev'], function() {
 	console.log('JADE正在努力生产_(:з)∠)_');
 	var YOUR_LOCALS = {};
 	return gulp.src('./app/*.jade')
 		.pipe(plumber())
 		.pipe(jade({
 			locals: YOUR_LOCALS,
-			pretty:true
+			pretty: true
 		}))
 		.pipe(gulp.dest('./public/'));
 });
@@ -138,3 +148,17 @@ gulp.task('lessPublish', function() {
 /**********************************************************
 	组件开发模式
 **********************************************************/
+gulp.task('watchCompenents', ['devCompenents'], function() {
+	console.log('观察Compenents发生的变化ing _(:з」∠)_');
+	return compenent.addCompenentsWatch();
+});
+
+gulp.task('devCompenents', function() {
+	console.log('编译Compenents中 _(:з」∠)_');
+	return compenent.handleCompenents();
+});
+
+gulp.task('publishCompents', function() {
+	console.log("迁移组件中的文件");
+	return compent.publishCompenentsImage();
+})

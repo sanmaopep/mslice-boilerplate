@@ -2,6 +2,9 @@ var babel = require('gulp-babel'),
 	gulp = require("gulp"),
 	gutil = require('gulp-util'),
 	webpack = require('webpack'),
+	concat = require('gulp-concat'),
+	rename = require('gulp-rename'),
+	sourcemaps = require('gulp-sourcemaps'),
 	webpackConfig = require('./webpack.config.js'),
 	publishConfig = require('./webpack.publish.config.js');
 
@@ -11,14 +14,14 @@ var devCompiler = webpack(myDevConfig);
 var publishCompiler = webpack(myPublishConfig);
 
 module.exports = {
-	complieBabel: () => {
-		return gulp.src('./app/js/*.js')
+	complieSingleBabel: (fileName, dist) => {
+		return gulp.src(fileName)
 			.pipe(sourcemaps.init())
 			.pipe(babel({
 				presets: ['es2015']
 			}))
 			.pipe(sourcemaps.write('.'))
-			.pipe(gulp.dest('./build/js/'));
+			.pipe(gulp.dest(dist));
 	},
 	runWebPack: (cb) => {
 		devCompiler.run(function(err, stats) {
@@ -37,5 +40,18 @@ module.exports = {
 			}));
 			cb();
 		});
+	},
+	devCompenentsBabel: () => {
+		return gulp.src('./app/compenents/**/*.js')
+			.pipe(sourcemaps.init())
+			.pipe(babel({
+				presets: ['es2015']
+			}))
+			.pipe(rename(function(path) {
+				path.basename = "script";
+			}))
+			.pipe(sourcemaps.write('.'))
+			.pipe(gulp.dest('./build/compenents'));
 	}
+
 };

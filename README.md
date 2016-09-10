@@ -18,7 +18,7 @@
 	\gulpconfig - gulp配置的部分解耦
 
 ## 版本更新
-### 功能
+### V1.0.0
 - 开设开发模式
 - 进行less，jade，ES6的编译
 - 监控less，jade，ES6更改并动态更新
