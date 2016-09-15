@@ -17,7 +17,7 @@ gulp.task('default', ['dev']);
 
 // 设置监控 
 gulp.task('dev', ['lessDev', 'jadeDev', 'babelDev', 'imgDev', 'libDev',
-	'browser-start','watchCompenents'
+	'browser-start', 'watchCompenents'
 ], function() {
 	console.log("正在努力开启开发模式_(:з)∠)_");
 
@@ -26,9 +26,10 @@ gulp.task('dev', ['lessDev', 'jadeDev', 'babelDev', 'imgDev', 'libDev',
 	gulp.watch('./app/less/*.less', ['lessDev']);
 	gulp.watch('./app/*.jade', ['jadeDev']);
 	gulp.watch('./app/js/*.js', ['babelDev']);
-
 	//监控build文件下的变化
-	gulp.watch('./build/**', ['browser-reload']);
+	gulp.watch(['./build/*.html', './build/js/*.js', './build/css/*.css',
+		'./build/compenents/**/*.{html,js,css}'
+	], ['browser-reload']);
 });
 
 // 编译Less
@@ -79,7 +80,8 @@ gulp.task('browser-start', function() {
 	console.log('服务器正在努力开启,等服务器提供IP吧_(:з)∠)_');
 	return browserSync.init({
 		server: {
-			baseDir: "./build/"
+			baseDir: "./build/",
+			online: true
 		}
 	});
 });

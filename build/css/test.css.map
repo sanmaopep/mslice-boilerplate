@@ -1,1 +1,0 @@
-{"version":3,"sources":["test.less","test.css"],"names":[],"mappings":"AAAA;EACC,kBAAA;EACA,2BAAA;EAAA,mBAAA;EACA,8BAAA;UAAA,sBAAA;CCCA","file":"test.css","sourcesContent":["h1{\r\n\tmargin-top: 100px;\r\n\ttransition: all 1s;\r\n\ttransform: scale(0.5);\r\n}","h1 {\n  margin-top: 100px;\n  transition: all 1s;\n  transform: scale(0.5);\n}\n"],"sourceRoot":"/source/"}

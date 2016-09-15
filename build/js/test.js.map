@@ -1,1 +1,0 @@
-{"version":3,"sources":["test.js"],"names":["name","age"],"mappings":";;;;;AAAA;AACC,IAAIA,OAAO,SAAX;AACA,IAAIC,MAAM,IAAV;QACQD,I,GAAAA,I;QAAMC,G,GAAAA,G","file":"test.js","sourcesContent":["//test.js\r\n var name = 'Rainbow';\r\n var age = '24';\r\n export {name, age};"],"sourceRoot":"/source/"}
