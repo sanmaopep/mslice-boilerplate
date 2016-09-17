@@ -34,7 +34,7 @@ module.exports = {
 			.pipe(cleanCSS({
 				compatibility: 'ie8'
 			}))
-			.pipe(gulp.dest('./public/css/'));
+			.pipe(gulp.dest('./build/css/'));
 	},
 	compileSingleLessFile: (fileName, dist) => {
 		return gulp.src(fileName)

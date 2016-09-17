@@ -1,10 +1,1 @@
-h1 {
-  margin-top: 100px;
-  -webkit-transition: all 1s;
-  transition: all 1s;
-}
-* {
-  margin: 0 0;
-}
-
-/*# sourceMappingURL=index.css.map */
+h1{margin-top:100px;-webkit-transition:all 1s;transition:all 1s}*{margin:0}

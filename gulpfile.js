@@ -8,6 +8,8 @@ var gulp = require("gulp"),
 	babel = require('./gulpconfig/babelConfig.js'),
 	less = require('./gulpconfig/lessConfig.js'),
 	compenent = require('./gulpconfig/compenentConfig.js'),
+	clean = require('del'),
+	runSequence = require('gulp-run-sequence'),
 	imagemin = require('gulp-imagemin');
 
 /**********************************************************
@@ -96,11 +98,20 @@ gulp.task('browser-reload', function() {
 	生产模式
 **********************************************************/
 
-gulp.task('publish', ['imgMinPublish',
-	'jadePublish', 'libPublish', 'babelPublish', 'lessPublish',
-	'publishCompents'
-], function() {
+gulp.task('publish', function(cb) {
 	console.log('_(:з」∠)_正在努力为你生产最终代码_(:з」∠)_');
+	runSequence('clean', 'imgMinPublish',
+		'jadePublish', 'libPublish', 'babelPublish', 'lessPublish',
+		'publishCompents', cb);
+});
+
+//清空文件夹
+gulp.task('clean', function() {
+	return clean([
+		'./build/**/*'
+	], {
+		force: true
+	});
 });
 
 // 图片压缩 发布模式
@@ -109,10 +120,10 @@ gulp.task('imgMinPublish', function() {
 	//精灵图？
 	gulp.src('./app/less/img/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./public/css/img/'));
+		.pipe(gulp.dest('./build/css/img/'));
 	return gulp.src('./app/asset/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./public/asset'));
+		.pipe(gulp.dest('./build/asset'));
 });
 
 // 发布jade
@@ -125,14 +136,14 @@ gulp.task('jadePublish', ['jadeDev'], function() {
 			locals: YOUR_LOCALS,
 			pretty: true
 		}))
-		.pipe(gulp.dest('./public/'));
+		.pipe(gulp.dest('./build/'));
 });
 
 // 发布第三方库
 gulp.task('libPublish', function() {
 	console.log('第三方Lib也在努力复制_(:з)∠)_');
 	return gulp.src('./app/lib/**')
-		.pipe(gulp.dest('./public/lib/'));
+		.pipe(gulp.dest('./build/lib/'));
 });
 
 // 生产ES6
@@ -162,5 +173,5 @@ gulp.task('devCompenents', function() {
 
 gulp.task('publishCompents', function() {
 	console.log("迁移组件中的文件");
-	return compent.publishCompenentsImage();
+	return compenent.publishCompenentsImage();
 })

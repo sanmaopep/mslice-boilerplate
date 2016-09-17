@@ -25,7 +25,7 @@ function getEntry() {
 module.exports = {
     entry: getEntry(), //获取项目入口js文件
     output: {
-        path: path.join(__dirname, "../public/js/"), //文件输出目录
+        path: path.join(__dirname, "../build/js/"), //文件输出目录
         filename: "[name].js", //根据入口文件输出的对应多个文件名
     },
     module: {
