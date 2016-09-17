@@ -14,9 +14,8 @@
 		\lib - 存放第三方库文件（如Jquery）
 		index.jade - 页面文件
 	\build - 开发模式生成代码
-	\publish - 生产模式生成代码
 	\gulpconfig - gulp配置的部分解耦
-
+	gulpfile.js - gulp config
 ## 版本更新
 ### V1.0.0
 - 开设开发模式
