@@ -41,7 +41,7 @@ gulp.task('dev', ['pug', 'sass', 'js', 'dev-server'], () => {
 
     // listen the change of your file
     gulp.watch('./src/pug/**/*.pug', ['pug-watch'])
-    gulp.watch('./src/sass/**/*.scss', ['sass'])
+    gulp.watch('./src/css/**/*.scss', ['sass'])
     gulp.watch('./src/js/**/*.js', ['js-watch'])
 
 })
