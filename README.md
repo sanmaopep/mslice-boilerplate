@@ -1,21 +1,32 @@
-# 前端切图脚手架
-## 概述
-### 运行方法
-- Run npm install to initialize.
-- Run gulp or gulp dev to open develop mode.
-- Run gulp publish to generate final code.
+# mao-slice-boilerplate
+## Overview
+### Quick Start
+
+Recommend to use yarn install!
+
+```
+npm install -g yarn
+yarn install
+npm run dev
+```
+### Production
+```
+npm run clean
+npm run build
+```
+**Notice:**  clean will only clean files in \css,\js as well as files which type is html
 
 ## 结构说明
-	\app - 项目源代码
-		\compenents - 存放组件
-		\img - 存放图片
-		\js - 存放ES6代码
+	\src - 项目源代码
+		\pug - 存放pug
+		\js - 存放JS代码
 		\less - 存放LESS代码
 		\lib - 存放第三方库文件（如Jquery）
 		index.jade - 页面文件
-	\build - 开发模式生成代码
-	\gulpconfig - gulp配置的部分解耦
+	\dist - 生成代码文件夹
+	    \assets - 可以存放静态文件
 	gulpfile.js - gulp config
+
 ## 版本更新
 ### V1.0.0
 - 开设开发模式
@@ -31,11 +42,18 @@
 - 开设组件化开发模式
 - 添加组件浏览器预览
 
+### V1.1.0
+- 简化文件结构，可以更加方便地进行项目移值
+- 基于cross-env重构gulpfile.js，大大减少配置文件代码量
+- rollup代替webpack
+- pug代替jade
+- 更新文档
+
 ### 未来期望
 - 添加CSS雪碧功能
 - 添加CSS图片base64功能
 - 文件MD5计算与替换
-- pug代替jade
+
 
 ## 常见问题
 ### 脚手架提供的外网IP在手机端无法连接
