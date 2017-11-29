@@ -1,4 +1,4 @@
-# mao-slice-boilerplate
+# mslice-boilerplate
 ## Overview
 ### Quick Start
 
